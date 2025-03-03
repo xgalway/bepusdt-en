@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <link rel="shortcut icon" href="/img/tron_trx.svg"/>
     <link href="/css/main.min.css" rel="stylesheet"/>
-    <title>Bepusdt - 一款更好USDT支付中间件</title>
+    <title>Bepusdt - A Better USDT Payment Middleware</title>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery.qrcode_1.0.min.js"></script>
     <script src="/js/clipboard.min.js"></script>
@@ -25,8 +25,8 @@
         </div>
         <h1>{{.http_host}}</h1>
         <label>
-            请扫描二维码或点击金额和地址粘贴转账TRX支付。<br>
-            <b style="color: red">转账金额必须为下方显示的金额且需要在倒计时内完成转账，否则无法被系统确认！</b>
+            Please scan the QR code or click the amount and address to copy for TRX payment.<br>
+            <b style="color: red">The transfer amount must be exactly as shown below and completed within the countdown time, otherwise it cannot be confirmed by the system!</b>
         </label>
     </div>
     <div class="content">
@@ -46,24 +46,24 @@
                 <ul class="downcount">
                     <li>
                         <span class="hours">00</span>
-                        <p class="hours_ref">时</p>
+                        <p class="hours_ref">h</p>
                     </li>
                     <li class="seperator">:</li>
                     <li>
                         <span class="minutes">00</span>
-                        <p class="minutes_ref">分</p>
+                        <p class="minutes_ref">m</p>
                     </li>
                     <li class="seperator">:</li>
                     <li>
                         <span class="seconds">00</span>
-                        <p class="seconds_ref">秒</p>
+                        <p class="seconds_ref">s</p>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="footer">
-        <p>Powered by <a href="https://github.com/v03413/bepusdt" target="_blank">v03413 - Bepusdt</a></p>
+        <p>&nbsp;</p>
     </div>
 </div>
 <script>
@@ -75,8 +75,7 @@
         let minute = Math.floor(seconds / 60);
         let hour = Math.floor(minute / 60);
         if (seconds <= 0) {
-
-            return layer.alert("支付超时，请重新发起支付！", {icon: 5});
+            return layer.alert("Payment timeout, please initiate payment again!", {icon: 5});
         }
 
         $('.hours').text(hour.toString().padStart(2, '0'));
@@ -97,13 +96,11 @@
                     return setTimeout(checkStatus, 5000);
                 }
                 if (data.status === 2) {  // 支付成功
-                    layer.msg('支付成功，正在跳转中...', {icon: 16, shade: 0.01, time: 20000});
-
+                    layer.msg('Payment successful, redirecting...', {icon: 16, shade: 0.01, time: 20000});
                     return window.location.href = data.return_url;
                 }
                 if (data.status === 3) {
-
-                    return layer.alert("支付超时，请重新发起支付！", {icon: 5, title: "❌ 支付超时"});
+                    return layer.alert("Payment timeout, please initiate payment again!", {icon: 5, title: "❌ Payment Timeout"});
                 }
             }
         });
@@ -120,10 +117,10 @@
         });
 
         (new ClipboardJS('#usdt')).on('success', function (e) {
-            return layer.msg('金额复制成功');
+            return layer.msg('Amount copied successfully');
         });
         (new ClipboardJS('#address')).on('success', function (e) {
-            layer.msg('地址复制成功');
+            layer.msg('Address copied successfully');
         });
 
         setTimeout(clock, 1000);
